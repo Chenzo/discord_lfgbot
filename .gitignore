@@ -1,0 +1,22 @@
+test.php
+composer.lock
+/vendor
+/discord
+
+
+
+node_modules
+node_modules/
+
+.sass-cache/
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+
+config.php
+
+*.sublime-project
+*.sublime-workspace

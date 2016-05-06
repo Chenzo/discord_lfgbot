@@ -51,14 +51,12 @@ $ws->on(
 
         echo "Guild Name {$guild->name}  = Role Name: {$role->name}".PHP_EOL;
 
-        echo $channel->name;
-
         foreach ($guild->channels as $ch) {
             echo "$ch->name | $ch->id\n";
         }
 
-        //$channel_name = "testing";
-        //$discord->guilds->get('id', $guild_id)->channels->get('name', $channel_name)->sendMessage("test msg");
+
+        //$discord->guilds->get('id', $guild_id)->channels->get('name', BOT_CHANNEL_NAME)->sendMessage("test msg");
         $guild->channels->get('name', BOT_CHANNEL_NAME)->sendMessage("Junk Bot Online!");
 
 
@@ -85,12 +83,18 @@ $ws->on(
                 echo $reply.PHP_EOL; // Finally, echo the message with a PHP end of line.
 
 
-                if (strrpos($message->content, '/tester ') !== false) {
-                    //$message->reply('Post to LFG');
-                    $message->full_channel->guild->channels->get('name', "testing")->sendMessage("Slash Tester Fired");
-                    $message->author->sendMessage("This is what you said");
-
+                if (strrpos($message->content, '/tester') !== false) {
+                    //This message is posted in the BOT_CHANNEL_NAME (added some special formatting to be cool)
+                    $message->full_channel->guild->channels->get('name', BOT_CHANNEL_NAME)->sendMessage("@" . $message->author->username . " - Slash Tester Fired\n```A special message right here.\na second once?```");
                 }
+
+                if (strrpos($message->content, '/command ') !== false) {
+                    //This is a private message to the person who typed the command
+
+                    $fullCommand = substr($message->content,9); //This will be split
+                    $message->author->sendMessage("This is what you said: " . $fullCommand);
+                }
+
             }
         );
 
